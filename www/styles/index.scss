@@ -1,4 +1,9 @@
 $red: #FF0000;
+@import '_imports/main';
+
+body {
+  background: #a9a9a9;
+}
 
 h1 {
   color: green;
