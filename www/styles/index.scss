@@ -1,6 +1,3 @@
-$red: #FF0000;
-@import '_imports/main';
-
 body {
   background: #a9a9a9;
 }
@@ -10,5 +7,11 @@ h1 {
 }
 
 h2 {
-  color: $red;
+  color: red;
+}
+
+@import '_imports/main';
+
+.content {
+  padding: 0;
 }
