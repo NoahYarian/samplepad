@@ -9,9 +9,19 @@ angular.module('samplePad', [
 .config(function($routeProvider) {
   $routeProvider
 
-    .when('/', {
+    .when('/main', {
       templateUrl : 'main.html',
       controller  : 'mainController'
+    })
+
+    .when('/myboards', {
+      templateUrl : 'myboards.html',
+      controller  : 'myboardsController'
+    })
+
+    .when('/create', {
+      templateUrl : 'create.html',
+      controller  : 'createController'
     });
 
 });
