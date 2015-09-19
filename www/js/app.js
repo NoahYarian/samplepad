@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('samplePad', [
   'samplePad.controllers',
   // 'samplePad.filters',
@@ -22,6 +24,9 @@ angular.module('samplePad', [
     .when('/create', {
       templateUrl : 'create.html',
       controller  : 'createController'
-    });
+    })
 
+    .otherwise({
+        redirectTo: '/main'
+    });
 });

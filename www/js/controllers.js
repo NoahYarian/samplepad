@@ -1,4 +1,14 @@
+'use strict';
+
 angular.module('samplePad.controllers', [])
+
+  .controller('headerController', ['$scope', '$location', function ($scope, $location) {
+
+    $scope.isActive = function (viewLocation) {
+      return $location.path().indexOf(viewLocation) == 0;
+    };
+
+  }])
 
   .controller('mainController', ['$scope', function ($scope) {
 

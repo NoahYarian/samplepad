@@ -9,15 +9,30 @@
     <link rel="stylesheet" href="/styles/main.css">
   </head>
   <body>
-    <h1>index.html</h1>
-    <header>
-      <ul>
-        <a href='#main'><li>Main</li></a>
-        <a href='#myboards'><li>My Boards</li></a>
-        <a href='#create'><li>Create Board</li></a>
-      </ul>
-    </header>
-    <div class="container" ng-view></div>
+    <nav class="navbar navbar-default" ng-controller="headerController">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#main">SamplePad</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ng-class="{ active: isActive('/main')}"><a href='#main'>Main</a></li>
+            <li ng-class="{ active: isActive('/myboards')}"><a href='#myboards'>My Boards</a></li>
+            <li ng-class="{ active: isActive('/create')}"><a href='#create'>Create Board</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container-fluid" ng-view></div>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.min.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
