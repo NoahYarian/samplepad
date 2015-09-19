@@ -1,0 +1,17 @@
+{
+  "name": "samplepad",
+  "version": "1.0.0",
+  "homepage": "https://github.com/NoahYarian/samplepad",
+  "authors": [
+    "Noah Yarian <noah.yarian@gmail.com>"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
