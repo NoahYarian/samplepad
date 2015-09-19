@@ -1,17 +1,17 @@
+@import '_imports/main';
+
 body {
   background: #a9a9a9;
 }
 
-h1 {
-  color: green;
-}
-
-h2 {
-  color: red;
-}
-
-@import '_imports/main';
-
 .content {
   padding: 0;
+}
+
+#main-text {
+  position: absolute;
+  top: 125px;
+  width: 100%;
+  text-align: center;
+  z-index: 100;
 }
