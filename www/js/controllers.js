@@ -29,12 +29,15 @@ angular.module('samplePad.controllers', [])
 
       $(audioElement)[0].play();
 
-      var padCub = $event.srcElement.parentElement.parentElement;
-      $(padCub).find(".face").not(".tp").css("background-color", "#FF9900");
+      var padCuboid = $event.srcElement.parentElement.parentElement;
+      var $edges = $(padCuboid).find(".face").not(".tp")
+      $edges.css("background-color", "#76FF03");
+
+      //$edges.css("height", "0.5em");
+      //TODO: translate buttons correctly based on perspective
 
       $(audioElement).on("ended", function () {
-        console.log("done playing");
-        $(padCub).find(".face").not(".tp").css("background-color", "#651FFF");
+        $edges.css("background-color", "#651FFF");
       });
 
     };
