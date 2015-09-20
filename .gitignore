@@ -28,3 +28,4 @@ node_modules
 www/lib
 www/styles/*.css
 config/secrets.js
+www/sounds

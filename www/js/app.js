@@ -21,9 +21,9 @@ angular.module('samplePad', [
       controller  : 'myboardsController'
     })
 
-    .when('/create', {
-      templateUrl : 'create.html',
-      controller  : 'createController'
+    .when('/pad', {
+      templateUrl : 'pad.html',
+      controller  : 'padController'
     })
 
     .otherwise({

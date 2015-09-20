@@ -22,14 +22,21 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('createController', ['$scope', function ($scope) {
+  .controller('padController', ['$scope', function ($scope) {
 
-    $scope.message = "create";
-    $scope.user =   {
-      "_id": "55fdd37c2f8cf520ea1bd251",
-      "email": "a@b.com",
-      "name": "Bob",
-      "__v": 0
+    $scope.message = "pad";
+    $scope.play = function(audioElement, $event) {
+
+      $(audioElement)[0].play();
+
+      var padCub = $event.srcElement.parentElement.parentElement;
+      $(padCub).find(".face").not(".tp").css("background-color", "#FF9900");
+
+      $(audioElement).on("ended", function () {
+        console.log("done playing");
+        $(padCub).find(".face").not(".tp").css("background-color", "#651FFF");
+      });
+
     };
 
   }]);
