@@ -24,7 +24,8 @@ angular.module('samplePad.controllers', [])
 
   .controller('padController', ['$scope', function ($scope) {
 
-    $scope.message = "pad";
+    $scope.editMode = false;
+
     $scope.play = function(audioElement, $event) {
 
       $(audioElement)[0].play();
@@ -41,5 +42,29 @@ angular.module('samplePad.controllers', [])
       });
 
     };
+
+    $scope.toggleEditMode = function ($event) {
+
+      var $editModeButton = $('#edit-mode-button');
+
+      var $span = $editModeButton.find("span");
+      var $edges = $editModeButton.parent().find(".face").not(".tp");
+      var $top = $editModeButton.find(".tp");
+
+      if ($scope.editMode) {
+        $edges.css("background-color", "#FF3D00");
+        $span
+          .css("color", "#FF3D00")
+          .text('EDIT');
+        $scope.editMode = false;
+      } else {
+        $edges.css("background-color", "#76FF03");
+        $span
+          .css("color", "#76FF03")
+          .text('SAVE');
+        $scope.editMode = true;
+      }
+
+    }
 
   }]);

@@ -25,3 +25,20 @@ body {
     margin: 0 0 0 -40em;
   }
 }
+
+.tp, #edit-mode-button span {
+  cursor: pointer;
+}
+
+.cuboid-2 .tp {
+  cursor: default;
+}
+
+#edit-mode-button {
+  span {
+    color: #FF3D00;
+    transform: rotateZ(-90deg) translateX(-0.7em);
+    display: block;
+    text-align: center;
+  }
+}
