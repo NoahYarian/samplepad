@@ -25,5 +25,11 @@ angular.module('samplePad.controllers', [])
   .controller('createController', ['$scope', function ($scope) {
 
     $scope.message = "create";
+    $scope.user =   {
+      "_id": "55fdd37c2f8cf520ea1bd251",
+      "email": "a@b.com",
+      "name": "Bob",
+      "__v": 0
+    };
 
   }]);
