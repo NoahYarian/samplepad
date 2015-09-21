@@ -28,19 +28,31 @@ angular.module('samplePad.controllers', [])
 
     $scope.play = function(audioElement, $event) {
 
-      // $(audioElement)[0].load();
-      $(audioElement)[0].play();
+      if (!$scope.editMode) {
+        $(audioElement)[0].play();
 
-      var padCuboid = $event.srcElement.parentElement.parentElement;
-      var $edges = $(padCuboid).find(".face").not(".tp")
-      $edges.css("background-color", "#76FF03");
+        var padCuboid = $event.srcElement.parentElement.parentElement;
+        var $edges = $(padCuboid).find(".face").not(".tp")
+        $edges.css("background-color", "#76FF03");
 
-      //$edges.css("height", "0.5em");
-      //TODO: translate buttons correctly based on perspective
+        // button pressed appearance
+        var observedTransform = $(padCuboid).css("transform");
+        var observedTransformArr = observedTransform.split(',');
+        observedTransformArr[13] = " -14";
+        var pressedTransform = observedTransformArr.join(',');
+        $(padCuboid).css("transform", pressedTransform);
 
-      $(audioElement).on("ended", function () {
-        $edges.css("background-color", "#651FFF");
-      });
+        // this was necessary for multiple clicks before transform value was reset
+        var initialTransformArr = observedTransform.split(',');
+        initialTransformArr[13] = " -21";
+        var initialTransform = initialTransformArr.join(',');
+
+
+        $(audioElement).on("ended", function () {
+          $edges.css("background-color", "#651FFF");
+          $(padCuboid).css("transform", initialTransform);
+        });
+      }
 
     };
 
@@ -70,10 +82,15 @@ angular.module('samplePad.controllers', [])
     }
 
     $scope.getPadName = function (padNum) {
-      return "Pad Name";
+      return "Pad Name for " + padNum;
     }
 
     $scope.getHotkey = function (padNum) {
+      return "3";
+    }
+
+    $scope.editPad = function (padNum, $event) {
+
       return "3";
     }
 
