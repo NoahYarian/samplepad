@@ -26,6 +26,11 @@ angular.module('samplePad', [
       controller  : 'padController'
     })
 
+    // .when('/pad/:id', {
+    //   templateUrl : 'pad.html',
+    //   controller  : 'padController'
+    // })
+
     .otherwise({
       redirectTo: '/main'
     });

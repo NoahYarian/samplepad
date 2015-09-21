@@ -2,7 +2,7 @@
 
 angular.module('samplePad.controllers', [])
 
-  .controller('headerController', ['$scope', '$location', '$http' function ($scope, $location, $http) {
+  .controller('headerController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
 
     $scope.isActive = function (viewLocation) {
       return $location.path().indexOf(viewLocation) == 0;
@@ -11,7 +11,7 @@ angular.module('samplePad.controllers', [])
     $scope.newBoard = function() {
       var emptyBoard = {
         name: "Untitled",
-        user_id: "testUser"
+        // user_id: "testUser",
         pads: [
           {
             active: true,
@@ -98,17 +98,21 @@ angular.module('samplePad.controllers', [])
             type: ""
           }
         ]
-      };
-      $http.post('/boards', emptyBoard)
+      }
+
+      $http.post('/api/boards', emptyBoard)
         .then(function(response) {
-          console.log(response);
+          // console.log(response.data.message, response.data.board_id);
+          // $location.path('/pad/' + response.data.board_id);
+
           // this callback will be called asynchronously
           // when the response is available
         }, function(response) {
-          console.log("err: " + response);
+          console.log(response);
           // called asynchronously if an error occurs
           // or server returns response with an error status.
         });
+    };
   }])
 
   .controller('mainController', ['$scope', function ($scope) {

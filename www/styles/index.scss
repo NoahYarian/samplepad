@@ -65,3 +65,9 @@ body {
 .pad-name {
   transform: rotateZ(-90deg) translate(-3em,3.8em);
 }
+
+@media (min-width: 768px) {
+  #new-board-button {
+    margin-right: -5px;
+  }
+}

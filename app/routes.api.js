@@ -49,14 +49,15 @@ router.route('/boards')
 
     var board = new Board();
     board.name = req.body.name;
+    board.pads = req.body.pads;
 
-    board.save(function(err) {
+    board.save(function(err, newBoard) {
 
       if (err) res.send(err);
 
       res.json({
         message: 'Board created!',
-        name: board.name
+        board_id: newBoard._id
       });
 
     });
@@ -71,6 +72,48 @@ router.route('/boards')
 
       res.json(boards);
 
+    });
+
+  });
+
+router.route('/boards/:board_id')
+
+  .get(function(req, res) {
+
+    Board.findById(req.params.board_id, function(err, board) {
+
+      if (err) res.send(err);
+
+      res.json(board);
+
+    });
+
+  })
+
+  .put(function(req, res) {
+
+    Board.findById(req.params.board_id, function(err, board) {
+
+      if (err) res.send(err);
+
+      board.name = req.body.name;
+      board.pads = req.body.pads;
+
+      board.save(function(err) {
+        if (err) res.send(err);
+        res.json({ message: 'Board updated!' });
+      });
+
+    });
+  })
+
+  .delete(function(req, res) {
+
+    Board.remove({
+      _id: req.params.board_id
+    }, function(err, board) {
+      if (err) res.send(err);
+      res.json({ message: 'Board deleted' });
     });
 
   });

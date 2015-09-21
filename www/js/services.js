@@ -1,9 +1,10 @@
 'use strict';
 
-/* Services */
+angular.module('samplePad.services', [])
 
+  .service('Board', function () {
+      this.load = function (board_id) {
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('myApp.services', []).
-  value('version', '0.1');
+      };
+
+  });
