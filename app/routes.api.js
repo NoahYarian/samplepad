@@ -48,8 +48,6 @@ router.route('/boards')
   .post(function(req, res) {
 
     var board = new Board();
-    board.name = req.body.name;
-    board.pads = req.body.pads;
 
     board.save(function(err, newBoard) {
 

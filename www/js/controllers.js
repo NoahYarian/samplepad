@@ -2,115 +2,17 @@
 
 angular.module('samplePad.controllers', [])
 
-  .controller('headerController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
+  .controller('headerController', ['$scope', '$location', 'Board', function ($scope, $location, Board) {
 
     $scope.isActive = function (viewLocation) {
       return $location.path().indexOf(viewLocation) == 0;
     }
 
     $scope.newBoard = function() {
-      var emptyBoard = {
-        name: "Untitled",
-        // user_id: "testUser",
-        pads: [
-          {
-            active: true,
-            label: "808 Bass Drum",
-            hotkey: "1",
-            src: "/sounds/BD.wav",
-            type: "audio/wav"
-          },
-          {
-            active: true,
-            label: "808 Snare Drum",
-            hotkey: "2",
-            src: "/sounds/SD.wav",
-            type: "audio/wav"
-          },
-          {
-            active: true,
-            label: "808 Closed Hat",
-            hotkey: "3",
-            src: "/sounds/CH.wav",
-            type: "audio/wav"
-          },
-          {
-            active: true,
-            label: "808 Hand Clap",
-            hotkey: "4",
-            src: "/sounds/CP.wav",
-            type: "audio/wav"
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "Q",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "W",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "E",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "R",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "A",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "S",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "D",
-            src: "",
-            type: ""
-          },
-          {
-            active: false,
-            label: "",
-            hotkey: "F",
-            src: "",
-            type: ""
-          }
-        ]
-      }
-
-      $http.post('/api/boards', emptyBoard)
+      Board.create()
         .then(function(response) {
-          // console.log(response.data.message, response.data.board_id);
+          console.log(response.data.message);
           $location.path('/pad/' + response.data.board_id);
-
-          // this callback will be called asynchronously
-          // when the response is available
-        }, function(response) {
-          console.log(response);
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
         });
     };
   }])
@@ -121,21 +23,30 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('myboardsController', ['$scope', function ($scope) {
-
-    $scope.message = "myboards";
-
-  }])
-
-  .controller('padController', ['$scope', '$timeout', '$routeParams', 'Board',
-    function ($scope, $timeout, $routeParams, Board) {
+  .controller('padController', ['$scope', '$timeout', '$routeParams', 'Board', '$location',
+    function ($scope, $timeout, $routeParams, Board, $location) {
 
     $scope.editMode = false;
 
     Board.load($routeParams.id)
-      .then(function(response) { //2. so you can use .then()
+      .then(function(response) {
         $scope.board = response.data;
       });
+
+    $scope.saveBoard = function () {
+      Board.save($scope.board)
+        .then(function(response) {
+          console.log(response.message);
+        });
+    }
+
+    $scope.deleteBoard = function () {
+      Board.delete($scope.board._id)
+        .then(function(response) {
+          console.log(response.data.message);
+          $location.path('/');
+        });
+    }
 
     $scope.play = function(audioElement, $event) {
 
@@ -196,14 +107,6 @@ angular.module('samplePad.controllers', [])
         $scope.editMode = true;
       }
 
-    }
-
-    $scope.getPadName = function (padNum) {
-      return "Pad Name for " + padNum;
-    }
-
-    $scope.getHotkey = function (padNum) {
-      return "3";
     }
 
     $scope.editPad = function (padNum, $event) {

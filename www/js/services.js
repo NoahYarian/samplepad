@@ -16,8 +16,17 @@ angular.module('samplePad.services', [])
 
   .factory('Board', ['$http', function($http) {
     return {
+      create: function() {
+        return $http.post('/api/boards');
+      },
       load: function(board_id) {
-        return $http.get('api/boards/' + board_id);  //1. this returns promise
+        return $http.get('api/boards/' + board_id);  // returns a promise
+      },
+      save: function(board) {
+        return $http.put('api/boards/' + board._id);  // returns a promise
+      },
+      delete: function(board_id) {
+        return $http.delete('api/boards/' + board_id);  // returns a promise
       }
     };
   }]);

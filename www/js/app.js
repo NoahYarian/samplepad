@@ -16,15 +16,10 @@ angular.module('samplePad', [
       controller  : 'mainController'
     })
 
-    .when('/myboards', {
-      templateUrl : 'myboards.html',
-      controller  : 'myboardsController'
-    })
-
-    .when('/pad', {
-      templateUrl : 'pad.html',
-      controller  : 'padController'
-    })
+    // .when('/pad', {
+    //   templateUrl : 'pad.html',
+    //   controller  : 'padController'
+    // })
 
     .when('/pad/:id', {
       templateUrl : 'pad.html',

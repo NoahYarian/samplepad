@@ -1,39 +1,7 @@
-<audio class="audio-01">
-  <source src='sounds/LC10.wav' type='audio/wav'>
-</audio>
-<audio class="audio-02">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-03">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-04">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-05">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-06">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-07">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-08">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-09">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-10">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-11">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-12">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
+<div id='board-controls'>
+  <button class='btn btn-default' ng-click='saveBoard()'>Save Board</button>
+  <button class='btn btn-default' ng-click='deleteBoard()'>Delete Board</button>
+</div>
 
 <div id="tridiv-pad">
   <div class="scene" style="-webkit-transform:rotateX(-62deg) rotateY(-810deg); -moz-transform:rotateX(-62deg) rotateY(-810deg); -ms-transform:rotateX(-62deg) rotateY(-810deg); transform:rotateX(-62deg) rotateY(-810deg); ">
@@ -56,8 +24,8 @@
       <div id="pad-03" class="face tp" ng-click="play('.audio-03', $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('03', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
-        <div class="pad-name">{{getPadName('03')}}</div>
-        <div class="hotkey">{{getHotkey('03')}}</div>
+        <div class="pad-name">{{board.pads[2].name}}</div>
+        <div class="hotkey">{{board.pads[2].hotkey}}</div>
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
       <div class="cr cr-0">
@@ -970,3 +938,40 @@
     </div>
   </div>
 </div>
+
+<audio class="audio-01">
+  <source src='sounds/LC10.wav' type='audio/wav'>
+</audio>
+<audio class="audio-02">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-03">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-04">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-05">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-06">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-07">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-08">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-09">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-10">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-11">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
+<audio class="audio-12">
+  <source src='sounds/rimshot.wav' type='audio/wav'>
+</audio>
