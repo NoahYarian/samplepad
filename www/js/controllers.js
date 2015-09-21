@@ -28,6 +28,7 @@ angular.module('samplePad.controllers', [])
 
     $scope.play = function(audioElement, $event) {
 
+      // $(audioElement)[0].load();
       $(audioElement)[0].play();
 
       var padCuboid = $event.srcElement.parentElement.parentElement;
@@ -45,6 +46,7 @@ angular.module('samplePad.controllers', [])
 
     $scope.toggleEditMode = function ($event) {
 
+      // Change appearance of button and toggle $scope.editMode
       var $editModeButton = $('#edit-mode-button');
 
       var $span = $editModeButton.find("span");
@@ -65,6 +67,14 @@ angular.module('samplePad.controllers', [])
         $scope.editMode = true;
       }
 
+    }
+
+    $scope.getPadName = function (padNum) {
+      return "Pad Name";
+    }
+
+    $scope.getHotkey = function (padNum) {
+      return "3";
     }
 
   }]);

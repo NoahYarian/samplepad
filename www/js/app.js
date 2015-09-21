@@ -27,6 +27,6 @@ angular.module('samplePad', [
     })
 
     .otherwise({
-        redirectTo: '/main'
+      redirectTo: '/main'
     });
 });

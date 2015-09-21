@@ -35,7 +35,7 @@
   <source src='sounds/rimshot.wav' type='audio/wav'>
 </audio>
 
-<div id="tridiv-create">
+<div id="tridiv-pad">
   <div class="scene" style="-webkit-transform:rotateX(-62deg) rotateY(-810deg); -moz-transform:rotateX(-62deg) rotateY(-810deg); -ms-transform:rotateX(-62deg) rotateY(-810deg); transform:rotateX(-62deg) rotateY(-810deg); ">
     <div class="shape cuboid-1 cub-1">
       <div class="face ft">
@@ -54,6 +54,10 @@
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
       <div id="pad-03" class="face tp" ng-click="play('.audio-03', $event)">
+        <div class="edit-pad-button" ng-if="editMode">EDIT</div>
+        <div class="edit-pad-button-hidden" ng-if="!editMode">EDIT</div>
+        <div class="pad-name">{{getPadName('03')}}</div>
+        <div class="hotkey">{{getHotkey('03')}}</div>
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
       <div class="cr cr-0">

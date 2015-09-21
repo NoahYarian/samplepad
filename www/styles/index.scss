@@ -1,5 +1,5 @@
 @import '_imports/main';
-@import '_imports/create';
+@import '_imports/pad';
 
 body {
   background: #a9a9a9;
@@ -17,7 +17,7 @@ body {
   z-index: 100;
 }
 
-#tridiv-create {
+#tridiv-pad {
   height: 35em;
   .scene {
     height: 30em;
@@ -41,4 +41,27 @@ body {
     display: block;
     text-align: center;
   }
+}
+
+.edit-pad-button, .edit-pad-button-hidden, .hotkey, .pad-name {
+  color: white;
+  text-align: center;
+}
+
+.edit-pad-button {
+  transform: rotateZ(-90deg) translateX(-4.4em);
+}
+
+.edit-pad-button-hidden {
+  transform: rotateZ(-90deg) translateX(-4.4em);
+  z-index: -100;
+  opacity: 0;
+}
+
+.hotkey {
+  transform: rotateZ(-90deg) translate(-5.4em, -3.6em);
+}
+
+.pad-name {
+  transform: rotateZ(-90deg) translate(-3em,3.8em);
 }
