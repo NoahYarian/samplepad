@@ -103,7 +103,7 @@ angular.module('samplePad.controllers', [])
       $http.post('/api/boards', emptyBoard)
         .then(function(response) {
           // console.log(response.data.message, response.data.board_id);
-          // $location.path('/pad/' + response.data.board_id);
+          $location.path('/pad/' + response.data.board_id);
 
           // this callback will be called asynchronously
           // when the response is available
@@ -127,9 +127,15 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('padController', ['$scope', '$timeout', function ($scope, $timeout) {
+  .controller('padController', ['$scope', '$timeout', '$routeParams', 'Board',
+    function ($scope, $timeout, $routeParams, Board) {
 
     $scope.editMode = false;
+
+    Board.load($routeParams.id)
+      .then(function(response) { //2. so you can use .then()
+        $scope.board = response.data;
+      });
 
     $scope.play = function(audioElement, $event) {
 

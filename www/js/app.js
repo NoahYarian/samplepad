@@ -3,7 +3,7 @@
 angular.module('samplePad', [
   'samplePad.controllers',
   // 'samplePad.filters',
-  // 'samplePad.services',
+  'samplePad.services',
   // 'samplePad.directives',
   'ngRoute',
   'ui.bootstrap'])
@@ -26,10 +26,10 @@ angular.module('samplePad', [
       controller  : 'padController'
     })
 
-    // .when('/pad/:id', {
-    //   templateUrl : 'pad.html',
-    //   controller  : 'padController'
-    // })
+    .when('/pad/:id', {
+      templateUrl : 'pad.html',
+      controller  : 'padController'
+    })
 
     .otherwise({
       redirectTo: '/main'
