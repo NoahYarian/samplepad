@@ -2,12 +2,113 @@
 
 angular.module('samplePad.controllers', [])
 
-  .controller('headerController', ['$scope', '$location', function ($scope, $location) {
+  .controller('headerController', ['$scope', '$location', '$http' function ($scope, $location, $http) {
 
     $scope.isActive = function (viewLocation) {
       return $location.path().indexOf(viewLocation) == 0;
-    };
+    }
 
+    $scope.newBoard = function() {
+      var emptyBoard = {
+        name: "Untitled",
+        user_id: "testUser"
+        pads: [
+          {
+            active: true,
+            label: "808 Bass Drum",
+            hotkey: "1",
+            src: "/sounds/BD.wav",
+            type: "audio/wav"
+          },
+          {
+            active: true,
+            label: "808 Snare Drum",
+            hotkey: "2",
+            src: "/sounds/SD.wav",
+            type: "audio/wav"
+          },
+          {
+            active: true,
+            label: "808 Closed Hat",
+            hotkey: "3",
+            src: "/sounds/CH.wav",
+            type: "audio/wav"
+          },
+          {
+            active: true,
+            label: "808 Hand Clap",
+            hotkey: "4",
+            src: "/sounds/CP.wav",
+            type: "audio/wav"
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "Q",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "W",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "E",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "R",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "A",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "S",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "D",
+            src: "",
+            type: ""
+          },
+          {
+            active: false,
+            label: "",
+            hotkey: "F",
+            src: "",
+            type: ""
+          }
+        ]
+      };
+      $http.post('/boards', emptyBoard)
+        .then(function(response) {
+          console.log(response);
+          // this callback will be called asynchronously
+          // when the response is available
+        }, function(response) {
+          console.log("err: " + response);
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
   }])
 
   .controller('mainController', ['$scope', function ($scope) {
