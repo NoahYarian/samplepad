@@ -22,7 +22,7 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('padController', ['$scope', function ($scope) {
+  .controller('padController', ['$scope', '$timeout', function ($scope, $timeout) {
 
     $scope.editMode = false;
 
@@ -47,10 +47,16 @@ angular.module('samplePad.controllers', [])
         initialTransformArr[13] = " -21";
         var initialTransform = initialTransformArr.join(',');
 
+        $timeout(function() {
+          $(padCuboid).css("transform", initialTransform);
+        }, 200);
+
+        // TODO: it would be nice to use mouse down and mouse up events to keep the pad pressed
+        // down as long as the mouse button is held, even though there would be no functional value.
 
         $(audioElement).on("ended", function () {
           $edges.css("background-color", "#651FFF");
-          $(padCuboid).css("transform", initialTransform);
+          // $(padCuboid).css("transform", initialTransform);
         });
       }
 
