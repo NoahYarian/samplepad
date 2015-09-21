@@ -16,14 +16,9 @@ angular.module('samplePad', [
       controller  : 'mainController'
     })
 
-    // .when('/pad', {
-    //   templateUrl : 'pad.html',
-    //   controller  : 'padController'
-    // })
-
-    .when('/pad/:id', {
-      templateUrl : 'pad.html',
-      controller  : 'padController'
+    .when('/boards/:id', {
+      templateUrl : 'board.html',
+      controller  : 'boardController'
     })
 
     .otherwise({

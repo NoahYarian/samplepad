@@ -54,7 +54,7 @@ router.route('/boards')
       if (err) res.send(err);
 
       res.json({
-        message: 'Board created!',
+        message: 'Board ' + newBoard._id + ' created',
         board_id: newBoard._id
       });
 
@@ -96,10 +96,11 @@ router.route('/boards/:board_id')
 
       board.name = req.body.name;
       board.pads = req.body.pads;
+      board.updated = Date();
 
       board.save(function(err) {
         if (err) res.send(err);
-        res.json({ message: 'Board updated!' });
+        res.json({ message: 'Board ' + board._id + ' saved' });
       });
 
     });
@@ -111,7 +112,7 @@ router.route('/boards/:board_id')
       _id: req.params.board_id
     }, function(err, board) {
       if (err) res.send(err);
-      res.json({ message: 'Board deleted' });
+      res.json({ message: 'Board ' + req.params.board_id + ' deleted' });
     });
 
   });

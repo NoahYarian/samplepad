@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 
 var BoardSchema   = new Schema({
   name: {type: String, default: "Untitled"},
-  created: {type: Date, default: Date.now},
+  created: {type: String, default: Date()},
+  updated: {type: String, default: Date()},
   pads: {
     type: Array,
     default: [

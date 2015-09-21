@@ -12,7 +12,7 @@ angular.module('samplePad.controllers', [])
       Board.create()
         .then(function(response) {
           console.log(response.data.message);
-          $location.path('/pad/' + response.data.board_id);
+          $location.path('/boards/' + response.data.board_id);
         });
     };
   }])
@@ -23,7 +23,7 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('padController', ['$scope', '$timeout', '$routeParams', 'Board', '$location',
+  .controller('boardController', ['$scope', '$timeout', '$routeParams', 'Board', '$location',
     function ($scope, $timeout, $routeParams, Board, $location) {
 
     $scope.editMode = false;
@@ -36,7 +36,7 @@ angular.module('samplePad.controllers', [])
     $scope.saveBoard = function () {
       Board.save($scope.board)
         .then(function(response) {
-          console.log(response.message);
+          console.log(response.data.message);
         });
     }
 
