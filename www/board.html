@@ -16,7 +16,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-3" class="face tp" ng-click="playSound(3, $event)">
+      <div id="pad-3" class="face tp" ng-click="triggerPad(3, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('03', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[2].name}}</div>
@@ -148,7 +148,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-7" class="face tp" ng-click="playSound(7, $event)">
+      <div id="pad-7" class="face tp" ng-click="triggerPad(7, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('07', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[6].name}}</div>
@@ -216,7 +216,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-1" class="face tp" ng-click="playSound(11, $event)">
+      <div id="pad-11" class="face tp" ng-click="triggerPad(11, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('11', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[10].name}}</div>
@@ -284,7 +284,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-2" class="face tp" ng-click="playSound(2, $event)">
+      <div id="pad-2" class="face tp" ng-click="triggerPad(2, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('02', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[1].name}}</div>
@@ -352,7 +352,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-6" class="face tp" ng-click="playSound(6, $event)">
+      <div id="pad-6" class="face tp" ng-click="triggerPad(6, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('06', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[5].name}}</div>
@@ -420,7 +420,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-5" class="face tp" ng-click="playSound(5, $event)">
+      <div id="pad-5" class="face tp" ng-click="triggerPad(5, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('05', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[4].name}}</div>
@@ -488,7 +488,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-10" class="face tp" ng-click="playSound(10, $event)">
+      <div id="pad-10" class="face tp" ng-click="triggerPad(10, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('10', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[9].name}}</div>
@@ -556,7 +556,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-9" class="face tp" ng-click="playSound(9, $event)">
+      <div id="pad-9" class="face tp" ng-click="triggerPad(9, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('09', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[8].name}}</div>
@@ -624,7 +624,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-1" class="face tp" ng-click="playSound(1, $event)">
+      <div id="pad-1" class="face tp" ng-click="triggerPad(1, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('01', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[0].name}}</div>
@@ -692,7 +692,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-4" class="face tp" ng-click="playSound(4, $event)">
+      <div id="pad-4" class="face tp" ng-click="triggerPad(4, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('04', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[3].name}}</div>
@@ -760,7 +760,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-8" class="face tp" ng-click="playSound(8, $event)">
+      <div id="pad-8" class="face tp" ng-click="triggerPad(8, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('08', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[7].name}}</div>
@@ -828,7 +828,7 @@
       <div class="face bm">
         <div class="photon-shader" style="background-color: rgba(255, 255, 255, 0.0470588);"></div>
       </div>
-      <div id="pad-12" class="face tp" ng-click="playSound(12, $event)">
+      <div id="pad-12" class="face tp" ng-click="triggerPad(12, $event)">
         <div class="edit-pad-button" ng-if="editMode" ng-click="editPad('12', $event)">EDIT</div>
         <div class="edit-pad-button-hidden" ng-if="!editMode">(hidden)</div>
         <div class="pad-name">{{board.pads[11].name}}</div>

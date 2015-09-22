@@ -12,14 +12,6 @@ angular.module('samplePad.controllers', [])
         $scope.boards = response.data;
       });
 
-    // $scope.$on('boardsUpdated', function() {
-    //   $scope.boards = Board.allBoards;
-    // });
-
-    // $scope.$watch('boards', function() {
-    //   Board.updateBoards($scope.boards);
-    // });
-
     $scope.$on('editModeUpdated', function() {
       $scope.editMode = EditMode.status;
     });
@@ -62,34 +54,56 @@ angular.module('samplePad.controllers', [])
     $scope.editMode = false;
     $scope.board = {};
     $scope.sounds = [];
+    $scope.charCodeArr = [];
 
+    $scope.initBoard = function() {
+      Board.load($routeParams.id)
+        .then(function(response) {
+          console.log(response);
+          $scope.board = response.data;
+
+          soundManager.setup({
+            url: '/lib/soundmanager2/swf/',
+            onready: function() {
+              for (var i = 1; i < 13; i++) {
+                $scope.loadSound(i, $scope.board.pads[i-1].src);
+              }
+            }
+          });
+
+          $scope.makeCharCodeArr();
+
+        });
+
+    }
+
+    $scope.initBoard();
+
+    // Event Listeners
     $scope.$watch('editMode', function() {
       EditMode.updateEditMode($scope.editMode);
     });
 
-    Board.load($routeParams.id)
-      .then(function(response) {
-        console.log(response);
-        $scope.board = response.data;
+    $('body').keypress(function(event) {
+      if ($scope.charCodeArr.indexOf(event.which) !== -1) {
+        $scope.triggerPad($scope.charCodeArr.indexOf(event.which) + 1);
+      }
+    });
+    //////////////
 
-
-
-        soundManager.setup({
-          url: '/lib/soundmanager2/swf/',
-          onready: function() {
-            for (var i = 1; i < 13; i++) {
-              $scope.loadSound(i, $scope.board.pads[i-1].src);
-            }
-          }
-        });
-
-      });
 
     $scope.loadSound = function(padNum, src) {
       $scope.sounds[padNum-1] = soundManager.createSound({
         url: $scope.board.pads[padNum-1].src
       });
     }
+
+    $scope.makeCharCodeArr = function () {   // default is [49,50,51,52,81,87,69,82,65,83,68,70];
+      $scope.board.pads.forEach(function(pad, i) {
+        $scope.charCodeArr[i] = pad.hotkey.charCodeAt(0);
+      });
+    }
+
 
     $scope.saveBoard = function () {
       Board.save($scope.board)
@@ -98,31 +112,33 @@ angular.module('samplePad.controllers', [])
         });
     }
 
-    $scope.playSound = function(padNum, $event) {
+    $scope.triggerPad = function(padNum, $event) {
 
       if (!$scope.editMode) {
 
-        var padCuboid = $event.srcElement.parentElement.parentElement;
-        var $edges = $(padCuboid).find(".face").not(".tp")
+        var $padCuboid = $('#pad-' + padNum).parent();
+        var $edges = $padCuboid.find(".face").not(".tp")
+
+        // change edge color when triggered
         $edges.css("background-color", "#76FF03");
 
         // button pressed appearance
-        var observedTransform = $(padCuboid).css("transform");
+        var observedTransform = $padCuboid.css("transform");
         var observedTransformArr = observedTransform.split(',');
         observedTransformArr[13] = " -14";
         var pressedTransform = observedTransformArr.join(',');
-        $(padCuboid).css("transform", pressedTransform);
+        $padCuboid.css("transform", pressedTransform);
 
-        // this was necessary for multiple clicks before transform value was reset
+        // fixed issue with multiple clicks within 200ms
         var initialTransformArr = observedTransform.split(',');
         initialTransformArr[13] = " -21";
         var initialTransform = initialTransformArr.join(',');
 
         $timeout(function() {
-          $(padCuboid).css("transform", initialTransform);
+          $padCuboid.css("transform", initialTransform);
         }, 200);
 
-        // play the sound and change the color back after it finishes
+        // play the sound and change the edge color back after it finishes
         $scope.sounds[padNum-1].play({
           onfinish: function() {
             $edges.css("background-color", "#651FFF");
