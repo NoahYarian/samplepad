@@ -55,6 +55,7 @@ angular.module('samplePad.controllers', [])
     $scope.board = {};
     $scope.sounds = [];
     $scope.charCodeArr = [];
+    $scope.padNumBeingEdited = '';
 
     $scope.initBoard = function() {
       Board.load($routeParams.id)
@@ -64,6 +65,7 @@ angular.module('samplePad.controllers', [])
 
           soundManager.setup({
             url: '/lib/soundmanager2/swf/',
+            debugMode: false,
             onready: function() {
               for (var i = 1; i < 13; i++) {
                 $scope.loadSound(i, $scope.board.pads[i-1].src);
@@ -84,10 +86,15 @@ angular.module('samplePad.controllers', [])
       EditMode.updateEditMode($scope.editMode);
     });
 
-    $('body').keypress(function(event) {
+    $('body').keydown(function(event) {
       if ($scope.charCodeArr.indexOf(event.which) !== -1) {
         $scope.triggerPad($scope.charCodeArr.indexOf(event.which) + 1);
       }
+    });
+
+    $('body').click(function(event) {
+      var $element = $(event.target);
+      $element.prevAll('.edit-pad-button').click();
     });
     //////////////
 
@@ -177,9 +184,37 @@ angular.module('samplePad.controllers', [])
 
     }
 
-    $scope.editPad = function (padNum, $event) {
+    $scope.editPad = function (padNum) {
+      $scope.padNumBeingEdited = padNum;
+      $scope.padDetails = {
+        name: $scope.board.pads[padNum-1].name,
+        src: $scope.board.pads[padNum-1].src,
+        hotkey: $scope.board.pads[padNum-1].hotkey
+      }
+      $('#modal').modal('show');
 
-      return "3";
+      $(document).keydown(function(e) {
+        if (e.keyCode == 27) {   // esc
+          $('.cancel-pad-edits-button').click();
+          $(document).off("keydown");
+        }
+      });
+
+    };
+
+    $scope.submitPadEdits = function (padDetails) {
+      $scope.board.pads[$scope.padNumBeingEdited-1] = {
+        name: padDetails.name,
+        src: padDetails.src,
+        hotkey: padDetails.hotkey
+      }
+      $scope.padNumBeingEdited = '';
+      $('#modal').modal('hide');
+    }
+
+    $scope.cancelPadEdits = function() {
+      $scope.padNumBeingEdited = '';
+      $(document).off("keydown");
     }
 
   }]);
