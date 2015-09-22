@@ -11,7 +11,8 @@ angular.module('samplePad.services', [])
         return $http.get('api/boards/' + board_id);
       },
       save: function(board) {
-        return $http.put('api/boards/' + board._id);
+        board.updated = Date();
+        return $http.put('api/boards/' + board._id, board);
       },
       delete: function(board_id) {
         return $http.delete('api/boards/' + board_id);
