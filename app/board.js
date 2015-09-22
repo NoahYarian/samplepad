@@ -11,88 +11,64 @@ var BoardSchema   = new Schema({
     type: Array,
     default: [
       {
-        active: true,
-        name: "808 Bass Drum",
-        hotkey: "1",
-        src: "/sounds/BD.wav",
-        type: "audio/wav"
+        "hotkey": "1",
+        "src": "/sounds/808/BD/BD0075.wav",
+        "name": "808 Bass Drum"
       },
       {
-        active: true,
-        name: "808 Snare Drum",
-        hotkey: "2",
-        src: "/sounds/SD.wav",
-        type: "audio/wav"
+        "hotkey": "2",
+        "src": "/sounds/808/SD/SD0010.wav",
+        "name": "808 Snare Drum"
       },
       {
-        active: true,
-        name: "808 Closed Hat",
-        hotkey: "3",
-        src: "/sounds/CH.wav",
-        type: "audio/wav"
+        "hotkey": "3",
+        "src": "/sounds/808/CH/CH.wav",
+        "name": "808 Closed Hat"
       },
       {
-        active: true,
-        name: "808 Hand Clap",
-        hotkey: "4",
-        src: "/sounds/CP.wav",
-        type: "audio/wav"
+        "hotkey": "4",
+        "src": "/sounds/808/CP/CP.wav",
+        "name": "808 Hand Clap"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "Q",
-        src: "",
-        type: ""
+        "hotkey": "Q",
+        "src": "/sounds/808/LT/LT00.wav",
+        "name": "808 Low Tom"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "W",
-        src: "",
-        type: ""
+        "hotkey": "W",
+        "src": "/sounds/808/MT/MT00.wav",
+        "name": "808 Mid Tom"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "E",
-        src: "",
-        type: ""
+        "hotkey": "E",
+        "src": "/sounds/808/HT/HT00.wav",
+        "name": "808 Hi Tom"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "R",
-        src: "",
-        type: ""
+        "hotkey": "R",
+        "src": "/sounds/808/RS/RS.wav",
+        "name": "808 Rim Shot"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "A",
-        src: "",
-        type: ""
+        "hotkey": "A",
+        "src": "/sounds/808/LC/LC00.wav",
+        "name": "808 Low Conga"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "S",
-        src: "",
-        type: ""
+        "hotkey": "S",
+        "src": "/sounds/808/MC/MC00.wav",
+        "name": "808 Mid Conga"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "D",
-        src: "",
-        type: ""
+        "hotkey": "D",
+        "src": "/sounds/808/HC/HC00.wav",
+        "name": "808 Hi Conga"
       },
       {
-        active: false,
-        name: "",
-        hotkey: "F",
-        src: "",
-        type: ""
+        "hotkey": "F",
+        "src": "/sounds/808/CB/CB.wav",
+        "name": "808 Cow Bell"
       }
     ]
   }

@@ -208,6 +208,7 @@ angular.module('samplePad.controllers', [])
         src: padDetails.src,
         hotkey: padDetails.hotkey
       }
+      $scope.loadSound($scope.padNumBeingEdited, padDetails.src);
       $scope.padNumBeingEdited = '';
       $('#modal').modal('hide');
     }
