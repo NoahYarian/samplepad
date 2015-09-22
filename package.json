@@ -26,7 +26,8 @@
     "mongodb": "^2.0.43",
     "mongoose": "^4.1.7",
     "morgan": "^1.6.1",
-    "node-sass-middleware": "^0.9.6"
+    "node-sass-middleware": "^0.9.6",
+    "soundmanager2": "^2.97.20150601"
   },
   "devDependencies": {
     "chai": "^3.2.0",

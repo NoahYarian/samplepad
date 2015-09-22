@@ -60,6 +60,8 @@ angular.module('samplePad.controllers', [])
     function ($scope, $timeout, $routeParams, $location, Board, EditMode) {
 
     $scope.editMode = false;
+    $scope.board = {};
+    $scope.sounds = [];
 
     $scope.$watch('editMode', function() {
       EditMode.updateEditMode($scope.editMode);
@@ -67,8 +69,27 @@ angular.module('samplePad.controllers', [])
 
     Board.load($routeParams.id)
       .then(function(response) {
+        console.log(response);
         $scope.board = response.data;
+
+
+
+        soundManager.setup({
+          url: '/lib/soundmanager2/swf/',
+          onready: function() {
+            for (var i = 1; i < 13; i++) {
+              $scope.loadSound(i, $scope.board.pads[i-1].src);
+            }
+          }
+        });
+
       });
+
+    $scope.loadSound = function(padNum, src) {
+      $scope.sounds[padNum-1] = soundManager.createSound({
+        url: $scope.board.pads[padNum-1].src
+      });
+    }
 
     $scope.saveBoard = function () {
       Board.save($scope.board)
@@ -77,10 +98,9 @@ angular.module('samplePad.controllers', [])
         });
     }
 
-    $scope.play = function(audioElement, $event) {
+    $scope.playSound = function(padNum, $event) {
 
       if (!$scope.editMode) {
-        $(audioElement)[0].play();
 
         var padCuboid = $event.srcElement.parentElement.parentElement;
         var $edges = $(padCuboid).find(".face").not(".tp")
@@ -102,12 +122,15 @@ angular.module('samplePad.controllers', [])
           $(padCuboid).css("transform", initialTransform);
         }, 200);
 
+        // play the sound and change the color back after it finishes
+        $scope.sounds[padNum-1].play({
+          onfinish: function() {
+            $edges.css("background-color", "#651FFF");
+          }
+        });
+
         // TODO: it would be nice to use mouse down and mouse up events to keep the pad pressed
         // down as long as the mouse button is held, even though there would be no functional value.
-
-        $(audioElement).on("ended", function () {
-          $edges.css("background-color", "#651FFF");
-        });
       }
 
     };
