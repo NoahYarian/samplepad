@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BoardSchema   = new Schema({
-  name: {type: String, default: "Untitled"},
+  name: {type: String, default: "808 Drum Kit"},
   created: {type: String, default: Date()},
   updated: {type: String, default: Date()},
   pads: {
@@ -75,12 +75,3 @@ var BoardSchema   = new Schema({
 });
 
 module.exports = mongoose.model('Board', BoardSchema);
-
-  // user_id: ObjectId,
-  // pads: [{
-  //   active: Boolean,
-  //   name: String,
-  //   hotkey: String,
-  //   src: String,
-  //   type: String
-  // }]

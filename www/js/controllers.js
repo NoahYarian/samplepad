@@ -24,7 +24,6 @@ angular.module('samplePad.controllers', [])
       Board.create()
         .then(function(response) {
           console.log(response.data.message);
-          $scope.boards
           $location.path('/boards/' + response.data.board_id);
         });
     }
@@ -51,11 +50,12 @@ angular.module('samplePad.controllers', [])
   .controller('boardController', ['$scope', '$timeout', '$routeParams', '$location', 'Board', 'EditMode',
     function ($scope, $timeout, $routeParams, $location, Board, EditMode) {
 
-    $scope.editMode = false;
     $scope.board = {};
     $scope.sounds = [];
     $scope.charCodeArr = [];
+    $scope.editMode = false;
     $scope.padNumBeingEdited = '';
+    $scope.editingBoardName = false;
 
     $scope.initBoard = function() {
       Board.load($routeParams.id)
@@ -69,6 +69,7 @@ angular.module('samplePad.controllers', [])
             onready: function() {
               for (var i = 1; i < 13; i++) {
                 $scope.loadSound(i, $scope.board.pads[i-1].src);
+                console.log('loaded ' + $scope.board.pads[i-1].src);
               }
             }
           });
@@ -216,6 +217,15 @@ angular.module('samplePad.controllers', [])
     $scope.cancelPadEdits = function() {
       $scope.padNumBeingEdited = '';
       $(document).off("keydown");
+    }
+
+    $scope.editBoardName = function() {
+      $scope.editingBoardName = true;
+    }
+
+    $scope.submitBoardNameEdit = function () {
+      $scope.editingBoardName = false;
+      $scope.saveBoard();
     }
 
   }]);

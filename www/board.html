@@ -1,3 +1,14 @@
+<div id="board-name" ng-if="!editingBoardName">
+  <h1 ng-click="editBoardName()">{{board.name}}</h1>
+</div>
+
+<div id="board-name-edit" class="input-group" ng-if="editingBoardName">
+  <input type="text" class="form-control" ng-model="board.name">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button" ng-click="submitBoardNameEdit()">Submit</button>
+  </span>
+</div>
+
 <div id="modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -964,40 +975,3 @@
     </div>
   </div>
 </div>
-
-<audio class="audio-01">
-  <source src='sounds/LC10.wav' type='audio/wav'>
-</audio>
-<audio class="audio-02">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-03">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-04">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-05">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-06">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-07">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-08">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-09">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-10">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-11">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>
-<audio class="audio-12">
-  <source src='sounds/rimshot.wav' type='audio/wav'>
-</audio>

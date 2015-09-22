@@ -17,12 +17,34 @@ body {
   z-index: 100;
 }
 
+#board-name {
+  position: absolute;
+  top: 36px;
+  z-index: 25;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  h1:hover {
+    text-decoration: underline;
+  }
+}
+
+#board-name-edit {
+  position: absolute;
+  top: 59px;
+  z-index: 25;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+}
+
+
 #tridiv-pad {
-  height: 35em;
+  height: 37em;
   .scene {
     height: 30em;
     top: 0;
-    margin: 0 0 0 -40em;
+    margin: 30px 0 0 -40em;
   }
 }
 
