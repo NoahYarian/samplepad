@@ -2,19 +2,36 @@
 
 angular.module('samplePad.controllers', [])
 
-  .controller('headerController', ['$scope', '$location', 'Board', function ($scope, $location, Board) {
+  .controller('headerController', ['$scope', '$location', 'Board', 'EditMode', function ($scope, $location, Board, EditMode) {
+
+    $scope.editMode = false;
+
+    $scope.$on('editModeUpdated', function() {
+      $scope.editMode = EditMode.status;
+    });
 
     $scope.isActive = function (viewLocation) {
       return $location.path().indexOf(viewLocation) == 0;
     }
 
-    $scope.newBoard = function() {
+    $scope.createBoard = function() {
       Board.create()
         .then(function(response) {
           console.log(response.data.message);
           $location.path('/boards/' + response.data.board_id);
         });
-    };
+    }
+
+    $scope.deleteBoard = function () {
+      var board_id = $location.path().split('/')[2];
+      Board.delete(board_id)
+        .then(function(response) {
+          console.log(response.data.message);
+          EditMode.updateEditMode(false);
+          $location.path('/');
+        });
+    }
+
   }])
 
   .controller('mainController', ['$scope', function ($scope) {
@@ -23,10 +40,18 @@ angular.module('samplePad.controllers', [])
 
   }])
 
-  .controller('boardController', ['$scope', '$timeout', '$routeParams', 'Board', '$location',
-    function ($scope, $timeout, $routeParams, Board, $location) {
+  .controller('boardController', ['$scope', '$timeout', '$routeParams', '$location', 'Board', 'EditMode',
+    function ($scope, $timeout, $routeParams, $location, Board, EditMode) {
 
     $scope.editMode = false;
+
+    $scope.$watch('editMode', function() {
+      EditMode.updateEditMode($scope.editMode);
+    });
+
+    $scope.$on('editModeUpdated', function() {
+      $scope.editMode = EditMode.status;
+    });
 
     Board.load($routeParams.id)
       .then(function(response) {
@@ -37,14 +62,6 @@ angular.module('samplePad.controllers', [])
       Board.save($scope.board)
         .then(function(response) {
           console.log(response.data.message);
-        });
-    }
-
-    $scope.deleteBoard = function () {
-      Board.delete($scope.board._id)
-        .then(function(response) {
-          console.log(response.data.message);
-          $location.path('/');
         });
     }
 
@@ -78,7 +95,6 @@ angular.module('samplePad.controllers', [])
 
         $(audioElement).on("ended", function () {
           $edges.css("background-color", "#651FFF");
-          // $(padCuboid).css("transform", initialTransform);
         });
       }
 
@@ -98,6 +114,7 @@ angular.module('samplePad.controllers', [])
         $span
           .css("color", "#FF3D00")
           .text('EDIT');
+        $scope.saveBoard();
         $scope.editMode = false;
       } else {
         $edges.css("background-color", "#76FF03");

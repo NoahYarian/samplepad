@@ -34,7 +34,7 @@ body {
   cursor: default;
 }
 
-#edit-mode-button {
+#edit-mode-button, #delete-board-button {
   span {
     color: #FF3D00;
     transform: rotateZ(-90deg) translateX(-0.7em);
@@ -67,7 +67,12 @@ body {
 }
 
 @media (min-width: 768px) {
-  #new-board-button {
-    margin-right: -5px;
+  .navbar-right~.navbar-right {
+    margin-right: 5px;
+  }
+
+  .navbar-right {
+    float: right!important;
+    margin-right: -10px;
   }
 }

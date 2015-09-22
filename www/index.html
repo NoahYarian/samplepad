@@ -29,9 +29,8 @@
             <li ng-class="{ active: isActive('/myboards')}"><a href='#myboards'>My Boards</a></li>
             <li ng-class="{ active: isActive('/pad')}"><a href='#pad'>Pad</a></li>
           </ul>
-          <!-- <ul class="nav navbar-nav navbar-right"> -->
-            <button id="new-board-button" class="btn btn-default navbar-btn navbar-right" ng-click="newBoard()">New Board</button>
-          <!-- </ul> -->
+          <button id="new-board-button" ng-click="createBoard()" class="btn btn-default navbar-btn navbar-right">New Board</button>
+          <button id="delete-board-button" ng-click="deleteBoard()" ng-if="editMode" class="btn btn-danger navbar-btn navbar-right">Delete Board</button>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

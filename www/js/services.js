@@ -2,31 +2,29 @@
 
 angular.module('samplePad.services', [])
 
-  // .service('Board', ['$http', function ($http) {
-  //   this.load = function (board_id) {
-  //     $http.get('/api/boards/' + board_id)
-  //       .then(function(response) {
+  .factory('EditMode', function($rootScope) {
+    var service = {};
+    service.status = false;
+    service.updateEditMode = function(status) {
+      this.status = status;
+      $rootScope.$broadcast("editModeUpdated");
+    }
+    return service;
+  })
 
-  //       }, function(response) {
-
-  //       });
-  //   };
-
-  // }]);
-
-  .factory('Board', ['$http', function($http) {
+  .factory('Board', ['$http', function($http) {   // These methods return promises
     return {
       create: function() {
         return $http.post('/api/boards');
       },
       load: function(board_id) {
-        return $http.get('api/boards/' + board_id);  // returns a promise
+        return $http.get('api/boards/' + board_id);
       },
       save: function(board) {
-        return $http.put('api/boards/' + board._id);  // returns a promise
+        return $http.put('api/boards/' + board._id);
       },
       delete: function(board_id) {
-        return $http.delete('api/boards/' + board_id);  // returns a promise
+        return $http.delete('api/boards/' + board_id);
       }
     };
   }]);
