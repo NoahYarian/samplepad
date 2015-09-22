@@ -25,9 +25,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/main')}"><a href='#main'>Main</a></li>
-            <li ng-class="{ active: isActive('/myboards')}"><a href='#myboards'>My Boards</a></li>
-            <li ng-class="{ active: isActive('/pad')}"><a href='#pad'>Pad</a></li>
+            <li ng-repeat="board in boards" ng-class="{ active: isActive('/board/{{board._id}}')}">
+              <a href='#boards/{{board._id}}'>{{board.name}}</a>
+            </li>
           </ul>
           <button id="new-board-button" ng-click="createBoard()" class="btn btn-default navbar-btn navbar-right">New Board</button>
           <button id="delete-board-button" ng-click="deleteBoard()" ng-if="editMode" class="btn btn-danger navbar-btn navbar-right">Delete Board</button>

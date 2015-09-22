@@ -2,16 +2,6 @@
 
 angular.module('samplePad.services', [])
 
-  .factory('EditMode', function($rootScope) {
-    var service = {};
-    service.status = false;
-    service.updateEditMode = function(status) {
-      this.status = status;
-      $rootScope.$broadcast("editModeUpdated");
-    }
-    return service;
-  })
-
   .factory('Board', ['$http', function($http) {   // These methods return promises
     return {
       create: function() {
@@ -25,6 +15,19 @@ angular.module('samplePad.services', [])
       },
       delete: function(board_id) {
         return $http.delete('api/boards/' + board_id);
+      },
+      getAll: function() {
+        return $http.get('api/boards');
       }
     };
-  }]);
+  }])
+
+  .factory('EditMode', ['$rootScope', function($rootScope) {
+    var service = {};
+    service.status = false;
+    service.updateEditMode = function(status) {
+      this.status = status;
+      $rootScope.$broadcast("editModeUpdated");
+    }
+    return service;
+  }])

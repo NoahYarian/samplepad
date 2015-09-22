@@ -5,6 +5,20 @@ angular.module('samplePad.controllers', [])
   .controller('headerController', ['$scope', '$location', 'Board', 'EditMode', function ($scope, $location, Board, EditMode) {
 
     $scope.editMode = false;
+    $scope.boards = [];
+
+    Board.getAll()
+      .then(function(response) {
+        $scope.boards = response.data;
+      });
+
+    // $scope.$on('boardsUpdated', function() {
+    //   $scope.boards = Board.allBoards;
+    // });
+
+    // $scope.$watch('boards', function() {
+    //   Board.updateBoards($scope.boards);
+    // });
 
     $scope.$on('editModeUpdated', function() {
       $scope.editMode = EditMode.status;
@@ -18,16 +32,18 @@ angular.module('samplePad.controllers', [])
       Board.create()
         .then(function(response) {
           console.log(response.data.message);
+          $scope.boards
           $location.path('/boards/' + response.data.board_id);
         });
     }
 
-    $scope.deleteBoard = function () {
+    $scope.deleteBoard = function () {    //TODO: add confirmation for delete
       var board_id = $location.path().split('/')[2];
       Board.delete(board_id)
         .then(function(response) {
           console.log(response.data.message);
           EditMode.updateEditMode(false);
+          $scope.boards
           $location.path('/');
         });
     }
@@ -47,10 +63,6 @@ angular.module('samplePad.controllers', [])
 
     $scope.$watch('editMode', function() {
       EditMode.updateEditMode($scope.editMode);
-    });
-
-    $scope.$on('editModeUpdated', function() {
-      $scope.editMode = EditMode.status;
     });
 
     Board.load($routeParams.id)
