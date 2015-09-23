@@ -51,7 +51,6 @@ angular.module('samplePad.controllers', [])
     function ($scope, $timeout, $routeParams, $location, Board, EditMode) {
 
     $scope.board = {};
-    $scope.sounds = [];
     $scope.charCodeArr = [];
     $scope.editMode = false;
     $scope.padNumBeingEdited = '';
@@ -64,16 +63,11 @@ angular.module('samplePad.controllers', [])
           console.log(response);
           $scope.board = response.data;
 
-          soundManager.setup({
-            url: '/lib/soundmanager2/swf/',
-            debugMode: false,
-            onready: function() {
-              for (var i = 1; i < 13; i++) {
-                $scope.loadSound(i, $scope.board.pads[i-1].src);
-                console.log('loaded ' + $scope.board.pads[i-1].src);
-              }
-            }
-          });
+          // load pad sounds
+          lowLag.init({sm2url: "lib/sm2/swf/"});
+          for (var i = 1; i < 13; i++) {
+            $scope.loadSound(i, $scope.board.pads[i-1].src);
+          }
 
           $scope.makeCharCodeArr();
 
@@ -97,9 +91,7 @@ angular.module('samplePad.controllers', [])
 
 
     $scope.loadSound = function(padNum, src) {
-      $scope.sounds[padNum-1] = soundManager.createSound({
-        url: $scope.board.pads[padNum-1].src
-      });
+      lowLag.load(src, padNum)
     }
 
     $scope.makeCharCodeArr = function () {   // default is [49,50,51,52,81,87,69,82,65,83,68,70];
@@ -116,7 +108,7 @@ angular.module('samplePad.controllers', [])
         });
     }
 
-    $scope.triggerPad = function(padNum, $event) {
+    $scope.triggerPad = function(padNum) {
 
       if (!$scope.editMode && !$scope.editingBoardName) {
 
@@ -142,11 +134,11 @@ angular.module('samplePad.controllers', [])
           $padCuboid.css("transform", initialTransform);
         }, 200);
 
-        // play the sound and change the edge color back after it finishes
-        $scope.sounds[padNum-1].play({
-          onfinish: function() {
-            $edges.css("background-color", "#651FFF");
-          }
+        // I modified lowLag.js to accept an optional callback
+        // to play() that fires on the 'ended' event.
+
+        lowLag.play(padNum, function () {
+          $edges.css("background-color", "#651FFF");
         });
 
         // TODO: it would be nice to use mouse down and mouse up events to keep the pad pressed
