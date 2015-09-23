@@ -45,7 +45,12 @@ angular.module('samplePad.controllers', [])
 
     $scope.googleInit = function() {
       gapi.signin2.render('g-signin2', {
-        onsuccess: $scope.onSignIn
+        'scope': 'email',
+        'width': 200,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': $scope.onSignIn(googleUser)
       });
     }
     $scope.googleInit();
