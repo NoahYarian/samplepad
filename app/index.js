@@ -3,7 +3,6 @@
 var express = require('express'),
     app = module.exports = express(),
     routes = require('./routes'),
-    // secrets = require('../config/secrets'),
 
     sass = require('node-sass-middleware'),
     morgan = require('morgan'),
