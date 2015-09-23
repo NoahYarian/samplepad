@@ -50,7 +50,7 @@ angular.module('samplePad.controllers', [])
         'height': 50,
         'longtitle': true,
         'theme': 'dark',
-        'onsuccess': $scope.onSignIn(googleUser)
+        'onsuccess': $scope.onSignIn
       });
     }
     $scope.googleInit();
