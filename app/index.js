@@ -1,21 +1,19 @@
 'use strict';
 
-var express = require('express'),
-    app = module.exports = express(),
-    routes = require('./routes'),
-
-    sass = require('node-sass-middleware'),
-    morgan = require('morgan'),
-    // errorhandler = require('errorhandler'),
+var express    = require('express'),
+    app        = module.exports = express(),
+    routes     = require('./routes'),
+    secrets    = require('../config/secrets'),
+    sass       = require('node-sass-middleware'),
+    morgan     = require('morgan'),
     bodyParser = require('body-parser'),
     mongoose   = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URL || require('../config/secrets').db);
+mongoose.connect(process.env.MONGODB_URL || secrets.MONGODB_URL);
 
 app.set('port', process.env.PORT || 3000);
 
 app.use(morgan('dev'));
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('www'));
 app.use(sass({
