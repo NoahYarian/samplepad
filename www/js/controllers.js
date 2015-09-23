@@ -56,6 +56,7 @@ angular.module('samplePad.controllers', [])
     $scope.editMode = false;
     $scope.padNumBeingEdited = '';
     $scope.editingBoardName = false;
+    $scope.oldBoardName = '';
 
     $scope.initBoard = function() {
       Board.load($routeParams.id)
@@ -92,11 +93,6 @@ angular.module('samplePad.controllers', [])
         $scope.triggerPad($scope.charCodeArr.indexOf(event.which) + 1);
       }
     });
-
-    $('body').click(function(event) {
-      var $element = $(event.target);
-      $element.prevAll('.edit-pad-button').click();
-    });
     //////////////
 
 
@@ -122,7 +118,7 @@ angular.module('samplePad.controllers', [])
 
     $scope.triggerPad = function(padNum, $event) {
 
-      if (!$scope.editMode) {
+      if (!$scope.editMode && !$scope.editingBoardName) {
 
         var $padCuboid = $('#pad-' + padNum).parent();
         var $edges = $padCuboid.find(".face").not(".tp")
@@ -169,13 +165,23 @@ angular.module('samplePad.controllers', [])
       var $top = $editModeButton.find(".tp");
 
       if ($scope.editMode) {
+
+        $(document).off("click");
+
         $edges.css("background-color", "#FF3D00");
         $span
           .css("color", "#FF3D00")
           .text('EDIT');
         $scope.saveBoard();
         $scope.editMode = false;
+
       } else {
+
+        $(document).click(function(event) {
+          var $element = $(event.target);
+          $element.prevAll('.edit-pad-button').click();
+        });
+
         $edges.css("background-color", "#76FF03");
         $span
           .css("color", "#76FF03")
@@ -221,11 +227,33 @@ angular.module('samplePad.controllers', [])
 
     $scope.editBoardName = function() {
       $scope.editingBoardName = true;
+      $scope.oldBoardName = $scope.board.name;
+      $(document).keydown(function(e) {
+        console.log(e.keyCode);
+        if (e.keyCode == 13) {       // enter
+          $scope.$apply(function() {
+            $scope.submitBoardNameEdit();
+          });
+          $(document).off("keydown");
+        }
+        if (e.keyCode == 27) {       // esc
+          $scope.$apply(function () {
+            $scope.cancelBoardNameEdit();
+          });
+          $(document).off("keydown");
+        }
+      });
     }
 
     $scope.submitBoardNameEdit = function () {
       $scope.editingBoardName = false;
+      $scope.oldBoardName = '';
       $scope.saveBoard();
+    }
+
+    $scope.cancelBoardNameEdit = function () {
+      $scope.board.name = $scope.oldBoardName;
+      $scope.editingBoardName = false;
     }
 
   }]);

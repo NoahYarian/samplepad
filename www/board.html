@@ -1,11 +1,12 @@
-<div id="board-name" ng-if="!editingBoardName">
+<div id="board-name" ng-show="!editingBoardName">
   <h1 ng-click="editBoardName()">{{board.name}}</h1>
 </div>
 
-<div id="board-name-edit" class="input-group" ng-if="editingBoardName">
+<div id="board-name-edit" class="input-group" ng-show="editingBoardName">
   <input type="text" class="form-control" ng-model="board.name">
   <span class="input-group-btn">
     <button class="btn btn-default" type="button" ng-click="submitBoardNameEdit()">Submit</button>
+    <button class="btn btn-default" type="button" ng-click="cancelBoardNameEdit()">Cancel</button>
   </span>
 </div>
 
