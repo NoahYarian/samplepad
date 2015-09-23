@@ -69,7 +69,7 @@ angular.module('samplePad.controllers', [])
             $scope.loadSound(i, $scope.board.pads[i-1].src);
           }
 
-          $scope.makeCharCodeArr();
+          $scope.updateCharCodeArr();
 
         });
 
@@ -94,7 +94,7 @@ angular.module('samplePad.controllers', [])
       lowLag.load(src, padNum)
     }
 
-    $scope.makeCharCodeArr = function () {   // default is [49,50,51,52,81,87,69,82,65,83,68,70];
+    $scope.updateCharCodeArr = function () {   // default is [49,50,51,52,81,87,69,82,65,83,68,70];
       $scope.board.pads.forEach(function(pad, i) {
         $scope.charCodeArr[i] = pad.hotkey.charCodeAt(0);
       });
@@ -208,6 +208,7 @@ angular.module('samplePad.controllers', [])
         hotkey: padDetails.hotkey
       }
       $scope.loadSound($scope.padNumBeingEdited, padDetails.src);
+      $scope.updateCharCodeArr();
       $scope.padNumBeingEdited = '';
       $('#modal').modal('hide');
     }
