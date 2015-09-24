@@ -3,13 +3,12 @@
 var express    = require('express'),
     app        = module.exports = express(),
     routes     = require('./routes'),
-    secrets    = require('../config/secrets'),
     sass       = require('node-sass-middleware'),
     morgan     = require('morgan'),
     bodyParser = require('body-parser'),
     mongoose   = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URL || secrets.MONGODB_URL);
+mongoose.connect(process.env.MONGODB_URL || require('../config/secrets').MONGODB_URL);
 
 app.set('port', process.env.PORT || 3000);
 
