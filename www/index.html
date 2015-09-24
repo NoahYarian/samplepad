@@ -24,24 +24,21 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" ng-cloak>
             <li ng-repeat="board in boards" ng-class="{ active: isActive('/board/{{board._id}}')}">
               <a href='#boards/{{board._id}}'>{{board.name}}</a>
             </li>
           </ul>
           <button id="new-board-button" ng-click="createBoard()" class="btn btn-default navbar-btn navbar-right">New Board</button>
-          <button id="delete-board-button" ng-click="deleteBoard()" ng-if="editMode" class="btn btn-danger navbar-btn navbar-right">Delete Board</button>
+          <button id="delete-board-button" ng-click="deleteBoard()" ng-if="editMode" class="btn btn-danger navbar-btn navbar-right" ng-cloak>Delete Board</button>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid content" ng-view></div>
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="lib/lowLag.js"></script>
     <script src="lib/sm2/js/soundmanager2.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="lib/prefixfree.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

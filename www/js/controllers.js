@@ -2,19 +2,39 @@
 
 angular.module('samplePad.controllers', [])
 
-  .controller('headerController', ['$scope', '$location', 'Board', 'EditMode', function ($scope, $location, Board, EditMode) {
+  .controller('headerController', ['$scope', '$rootScope', '$location', 'Board', 'BoardList', 'EditMode',
+    function ($scope, $rootScope, $location, Board, BoardList, EditMode) {
 
+    Board.updateBoards();
+    // $scope.initHeader = function () {
+    //   Board.getAll()
+    //     .then(function(response) {
+    //       Board.setBoards(response.data);
+    //     });
+    // }
+    // $scope.initHeader();
+
+    // $rootScope.$watch('boards', function () {
+    //   $scope.boards = $rootScope.boards;
+    // });
+
+    // Sync boards between controllers when changed
+
+    $rootScope.$on('boardsUpdated', function() {
+      $scope.boards = $rootScope.boards;
+    });
+
+    // Sync edit mode between controllers when changed
     $scope.editMode = false;
-    $scope.boards = [];
-
-    Board.getAll()
-      .then(function(response) {
-        $scope.boards = response.data;
-      });
 
     $scope.$on('editModeUpdated', function() {
       $scope.editMode = EditMode.status;
     });
+
+    $scope.$watch('editMode', function() {
+      EditMode.updateEditMode($scope.editMode);
+    });
+    //////////////////////////////////////////////////
 
     $scope.isActive = function (viewLocation) {
       return $location.path().indexOf(viewLocation) == 0;
@@ -33,56 +53,68 @@ angular.module('samplePad.controllers', [])
       Board.delete(board_id)
         .then(function(response) {
           console.log(response.data.message);
-          EditMode.updateEditMode(false);
-          $scope.boards
+          $scope.editMode = false;
+          Board.setBoards(response.data.boards);
           $location.path('/');
         });
     }
 
   }])
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
   .controller('mainController', ['$scope', function ($scope) {
 
-    $scope.googleInit = function() {
-      gapi.signin2.render('g-signin2', {
-        'scope': 'email',
-        'width': 200,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': $scope.onSignIn
-      });
-    }
-    $scope.googleInit();
+    // $scope.googleInit = function() {
+    //   gapi.signin2.render('g-signin2', {
+    //     'scope': 'email',
+    //     'width': 200,
+    //     'height': 50,
+    //     'longtitle': true,
+    //     'theme': 'dark',
+    //     'onsuccess': $scope.onSignIn
+    //   });
+    // }
+    // $scope.googleInit();
 
-    $scope.onSignIn = function (googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
-    }
+    // $scope.onSignIn = function (googleUser) {
+    //   var profile = googleUser.getBasicProfile();
+    //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    //   console.log('Name: ' + profile.getName());
+    //   console.log('Image URL: ' + profile.getImageUrl());
+    //   console.log('Email: ' + profile.getEmail());
+    // }
 
-    $scope.signOut = function () {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
+    // $scope.signOut = function () {
+    //   var auth2 = gapi.auth2.getAuthInstance();
+    //   auth2.signOut().then(function () {
+    //     console.log('User signed out.');
+    //   });
+    // }
 
   }])
 
-  .controller('boardController', ['$scope', '$timeout', '$routeParams', '$location', 'Board', 'EditMode',
-    function ($scope, $timeout, $routeParams, $location, Board, EditMode) {
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+  .controller('boardController', ['$scope', '$rootScope', '$timeout', '$routeParams', '$location', 'Board', 'BoardList', 'EditMode',
+    function ($scope, $rootScope, $timeout, $routeParams, $location, Board, BoardList, EditMode) {
 
     $scope.board = {};
     $scope.charCodeArr = [];
-    $scope.editMode = false;
     $scope.padNumBeingEdited = '';
     $scope.editingBoardName = false;
     $scope.oldBoardName = '';
 
+    $rootScope.$on('boardsUpdated', function() {
+      $scope.boards = $rootScope.boards;
+    });
+
+    $scope.$watch('boards', function() {
+      Board.setBoards($scope.boards);
+    });
+
     $scope.initBoard = function() {
+
       Board.load($routeParams.id)
         .then(function(response) {
           console.log(response);
@@ -95,24 +127,53 @@ angular.module('samplePad.controllers', [])
           }
 
           $scope.updateCharCodeArr();
+        });
 
+
+      Board.getAll()
+        .then(function(response) {
+          console.log("Board.getAll res",response);
+          $scope.boards = response.data;
         });
 
     }
 
     $scope.initBoard();
 
-    // Event Listeners
+    // $rootScope.$watch('boards', function () {
+    //   $scope.boards = $rootScope.boards;
+    // });
+
+    // Sync boards between controllers when changed
+    // $scope.boards = [];
+
+    $rootScope.$on('boardsUpdated', function() {
+      $scope.boards = $rootScope.boards;
+    });
+
+    // $scope.$watch('boards', function() {
+    //   BoardList.updateBoards($scope.boards);
+    // });
+    // ///////////////////////////////////////////////
+
+
+    // Sync edit mode between controllers when changed
+    $scope.editMode = false;
+
+    $scope.$on('editModeUpdated', function() {
+      $scope.editMode = EditMode.status;
+    });
+
     $scope.$watch('editMode', function() {
       EditMode.updateEditMode($scope.editMode);
     });
+    //////////////////////////////////////////////////
 
     $('body').keydown(function(event) {
       if ($scope.charCodeArr.indexOf(event.which) !== -1) {
         $scope.triggerPad($scope.charCodeArr.indexOf(event.which) + 1);
       }
     });
-    //////////////
 
 
     $scope.loadSound = function(padNum, src) {
@@ -130,6 +191,7 @@ angular.module('samplePad.controllers', [])
       Board.save($scope.board)
         .then(function(response) {
           console.log(response.data.message);
+          Board.setBoards(response.data.boards);
         });
     }
 
@@ -249,15 +311,15 @@ angular.module('samplePad.controllers', [])
       $(document).keydown(function(e) {
         console.log(e.keyCode);
         if (e.keyCode == 13) {       // enter
-          $scope.$apply(function() {
+          // $scope.$apply(function() {
             $scope.submitBoardNameEdit();
-          });
+          // });
           $(document).off("keydown");
         }
         if (e.keyCode == 27) {       // esc
-          $scope.$apply(function () {
+          // $scope.$apply(function () {
             $scope.cancelBoardNameEdit();
-          });
+          // });
           $(document).off("keydown");
         }
       });

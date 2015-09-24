@@ -100,7 +100,13 @@ router.route('/boards/:board_id')
 
       board.save(function(err) {
         if (err) res.send(err);
-        res.json({ message: 'Board ' + board._id + ' saved' });
+        Board.find(function(err2, boards) {
+          if (err2) res.send(err2);
+          res.json({
+            message: 'Board ' + board._id + ' saved',
+            boards: boards
+           });
+        });
       });
 
     });
@@ -112,7 +118,13 @@ router.route('/boards/:board_id')
       _id: req.params.board_id
     }, function(err, board) {
       if (err) res.send(err);
-      res.json({ message: 'Board ' + req.params.board_id + ' deleted' });
+      Board.find(function(err2, boards) {
+        if (err2) res.send(err2);
+        res.json({
+          message: 'Board ' + req.params.board_id + ' deleted',
+          boards: boards
+         });
+      });
     });
 
   });
