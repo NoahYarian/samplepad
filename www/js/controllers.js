@@ -308,21 +308,21 @@ angular.module('samplePad.controllers', [])
     $scope.editBoardName = function() {
       $scope.editingBoardName = true;
       $scope.oldBoardName = $scope.board.name;
-      $(document).keydown(function(e) {
-        console.log(e.keyCode);
-        if (e.keyCode == 13) {       // enter
-          // $scope.$apply(function() {
-            $scope.submitBoardNameEdit();
-          // });
-          $(document).off("keydown");
-        }
-        if (e.keyCode == 27) {       // esc
-          // $scope.$apply(function () {
-            $scope.cancelBoardNameEdit();
-          // });
-          $(document).off("keydown");
-        }
-      });
+      // $(document).keydown(function(e) {
+      //   console.log(e.keyCode);
+      //   if (e.keyCode == 13) {       // enter
+      //     // $scope.$apply(function() {
+      //       $scope.submitBoardNameEdit();
+      //     // });
+      //     $(document).off("keydown");
+      //   }
+      //   if (e.keyCode == 27) {       // esc
+      //     // $scope.$apply(function () {
+      //       $scope.cancelBoardNameEdit();
+      //     // });
+      //     $(document).off("keydown");
+      //   }
+      // });
     }
 
     $scope.submitBoardNameEdit = function () {
